@@ -9,6 +9,9 @@ import {MaterialModule} from './modules/app.material.module';
 import { AppContainerComponent } from './components/app-container/app.container.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AuthContentComponent } from './components/auth-content/auth.content.component';
+import {AppRoutingModule} from './modules/app.routing.module';
+import { AuthComponent } from './components/auth/auth.component';
+import { ContentComponent } from './components/content/content.component';
 
 
 
@@ -19,6 +22,8 @@ import { AuthContentComponent } from './components/auth-content/auth.content.com
     AppContainerComponent,
     HeaderComponent,
     AuthContentComponent,
+    AuthComponent,
+    ContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +33,7 @@ import { AuthContentComponent } from './components/auth-content/auth.content.com
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
