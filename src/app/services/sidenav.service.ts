@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {ElementRef, Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {MatSidenav} from '@angular/material/sidenav';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidenavService {
-  sidenavToggle: Observable<MatSidenav>;
+  sidenav = new BehaviorSubject<ElementRef<MatSidenav>>(null);
 
   constructor() {
   }

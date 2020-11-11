@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatSidenav} from '@angular/material/sidenav';
+import {SidenavService} from '../../services/sidenav.service';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, AfterViewInit {
+  @ViewChild('sidenav') sidenav: ElementRef<MatSidenav>;
 
-  constructor() { }
+  constructor(private sidenavService: SidenavService) { }
 
   ngOnInit(): void {
   }
+
+  ngAfterViewInit(): void {
+    this.sidenavService.sidenav.next(this.sidenav);
+  }
+
 
 }
