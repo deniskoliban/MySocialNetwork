@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {SidenavService} from '../../services/sidenav.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  sidenavSubscription: Subscription;
 
-  constructor() { }
+  constructor(private sidenavService: SidenavService) { }
 
   ngOnInit(): void {
+  }
+
+  toggleSidebar(): void {
+    this.sidenavSubscription = this.sidenavService.sidenavToggle.subscribe((sidebar) => {
+      sidebar.toggle();
+    });
+    this.sidenavSubscription.unsubscribe();
   }
 
 }
