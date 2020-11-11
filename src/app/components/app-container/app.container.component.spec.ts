@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContentContainerComponent } from './content-container.component';
+import { AppContainerComponent } from './app.container.component';
 
-describe('ContentContainerComponent', () => {
-  let component: ContentContainerComponent;
-  let fixture: ComponentFixture<ContentContainerComponent>;
+describe('AppContainerComponent', () => {
+  let component: AppContainerComponent;
+  let fixture: ComponentFixture<AppContainerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContentContainerComponent ]
+      declarations: [ AppContainerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContentContainerComponent);
+    fixture = TestBed.createComponent(AppContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

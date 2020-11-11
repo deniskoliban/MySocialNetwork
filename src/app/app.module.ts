@@ -1,17 +1,33 @@
 import { NgModule } from '@angular/core';
-import {ContainerComponentsModule} from './modules/container.components.module';
-
 import { AppComponent } from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from './modules/app.material.module';
+import { AppContainerComponent } from './components/app-container/app.container.component';
+import { HeaderComponent } from './components/header/header.component';
+import { AuthContentComponent } from './components/auth-content/auth.content.component';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AppContainerComponent,
+    HeaderComponent,
+    AuthContentComponent,
   ],
   imports: [
-    ContainerComponentsModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

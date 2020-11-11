@@ -35,7 +35,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
-const MaterilModules = [
+const MaterialModules = [
   MatCheckboxModule,
   MatCheckboxModule,
   MatButtonModule,
@@ -72,10 +72,10 @@ const MaterilModules = [
 
 @NgModule({
   imports: [
-    MaterilModules
+    MaterialModules
   ],
   exports: [
-    MaterilModules
+    MaterialModules
   ]
 })
-export class AppMaterialModule { }
+export class MaterialModule { }
