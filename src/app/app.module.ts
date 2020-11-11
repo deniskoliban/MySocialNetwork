@@ -12,6 +12,7 @@ import { AuthContentComponent } from './components/auth-content/auth.content.com
 import {AppRoutingModule} from './modules/app.routing.module';
 import { AuthComponent } from './components/auth/auth.component';
 import {HttpClientModule} from '@angular/common/http';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
@@ -23,6 +24,7 @@ import {HttpClientModule} from '@angular/common/http';
     HeaderComponent,
     AuthContentComponent,
     AuthComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
