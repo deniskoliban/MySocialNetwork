@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { AuthContentComponent } from './components/auth-content/auth.content.component';
 import {AppRoutingModule} from './modules/app.routing.module';
 import { AuthComponent } from './components/auth/auth.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 
@@ -31,7 +32,8 @@ import { AuthComponent } from './components/auth/auth.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

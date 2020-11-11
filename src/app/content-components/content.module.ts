@@ -20,6 +20,7 @@ const httpRoutes = [
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
+    HttpClientModule
   ],
   exports: [
   ],
