@@ -1,1 +1,33 @@
-<p>login works!</p>
+<br>
+<div class="form-container-outer-login mat-app-background">
+  <form class="form" [formGroup]="" >
+    <div class="form-container-inner">
+      <h1 class="mat-body-1" >Authentication</h1>
+      <p style="font-size: small; color: #969898">Please enter your email and password</p>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input required matInput type="email" [formControl]="loginFormControls.email">
+        <mat-error >
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input required matInput type="password" [formControl]="loginFormControls.password">
+        <mat-error >
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <div class="form-actions">
+        <button mat-raised-button
+                type="button"
+                [disabled]="!loginForm.valid"
+                color="accent"
+                [routerLink]="['../content']"
+        >Login</button>
+      </div>
+    </div>
+  </form>
+</div>
+

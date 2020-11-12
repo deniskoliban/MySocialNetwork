@@ -1,0 +1,30 @@
+.form-container-outer-login {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+.form {
+  width: 300px;
+  background-color: #4b5151;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-container-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+mat-form-field {
+  width: 100%;
+}
+
+.form-actions {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+}
