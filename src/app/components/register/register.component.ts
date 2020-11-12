@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,7 +15,6 @@ export class RegisterComponent implements OnInit {
     lastName: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required]),
-    passwordConfirmation: new FormControl(null, [Validators.required]),
   };
 
   constructor(private fb: FormBuilder, private authService: AuthService) { }
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.signUp(this.registerForm.value.email, this.registerForm.value.password);
+    this.authService.signUp(this.registerForm.value);
   }
 
 }

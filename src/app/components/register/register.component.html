@@ -34,7 +34,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Confirm password</mat-label>
-        <input required matInput type="password" [formControl]="registerFormControls.passwordConfirmation">
+        <input #confirm required matInput type="password">
         <mat-error >
           Password is <strong>not equal</strong>
         </mat-error>
@@ -46,7 +46,7 @@
       <div class="form-actions">
         <button mat-raised-button
                 type="submit"
-                [disabled]="!registerForm.valid"
+                [disabled]="!registerForm.valid && confirm.value !== registerFormControls.password.value"
                 color="accent"
         >Register Now</button>
       </div>

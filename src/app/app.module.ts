@@ -14,6 +14,8 @@ import { AuthComponent } from './components/auth/auth.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import {StoreModule} from '@ngrx/store';
+import * as fromAppReducer from './store/app.reducer';
 
 
 
@@ -37,7 +39,8 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(fromAppReducer.appReducer)
   ],
   providers: [],
   bootstrap: [AppComponent]
