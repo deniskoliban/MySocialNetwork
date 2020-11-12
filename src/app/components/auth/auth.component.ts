@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+  register = false;
 
   constructor(private router: Router) { }
 
