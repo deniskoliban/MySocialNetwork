@@ -13,6 +13,7 @@ import {AppRoutingModule} from './modules/app.routing.module';
 import { AuthComponent } from './components/auth/auth.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 
@@ -25,6 +26,7 @@ import { RegisterComponent } from './components/register/register.component';
     AuthContentComponent,
     AuthComponent,
     RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
