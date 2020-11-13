@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
-import {SidenavService} from '../../services/sidenav.service';
+import {SidenavService} from '../../services/services/sidenav.service';
 import {Subscription} from 'rxjs';
 import {MatSidenav} from '@angular/material/sidenav';
 

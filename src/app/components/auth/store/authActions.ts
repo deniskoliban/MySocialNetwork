@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {AuthResponse} from '../../../services/auth.service';
+import {AuthResponse} from '../../../services/services/auth.service';
 
 export interface AuthData {
   email: string;
@@ -16,13 +16,8 @@ export interface ResponseData {
 }
 
 
-export const signup = createAction(
-  'SIGN_UP',
-  props<AuthResponse>()
-);
-
 export const login = createAction(
-  'LOGIN',
+  'SIGN_UP',
   props<AuthResponse>()
 );
 
