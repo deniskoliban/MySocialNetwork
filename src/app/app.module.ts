@@ -11,11 +11,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { AuthContentComponent } from './components/auth-content/auth.content.component';
 import {AppRoutingModule} from './modules/app.routing.module';
 import { AuthComponent } from './components/auth/auth.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import {StoreModule} from '@ngrx/store';
 import * as fromAppReducer from './store/app.reducer';
+import {AuthInterceptorService} from './services/interceptors/auth-interceptor.service';
 
 
 
@@ -42,7 +43,13 @@ import * as fromAppReducer from './store/app.reducer';
     HttpClientModule,
     StoreModule.forRoot(fromAppReducer.appReducer)
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

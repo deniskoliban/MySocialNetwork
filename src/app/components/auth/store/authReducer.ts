@@ -12,7 +12,7 @@ const initialState: State = {
 
 const scoreboardReducer = createReducer(
   initialState,
-  on(AuthActions.login, (state: State, userData) => {
+  on(AuthActions.createUser, (state: State, userData) => {
     return ({
       ...state,
       user: new User(
@@ -22,7 +22,7 @@ const scoreboardReducer = createReducer(
         new Date(new Date().getTime() + +userData.expiresIn * 1000 ))
     });
   }),
-  on(AuthActions.logout,
+  on(AuthActions.deleteUser,
       state => {
         return {...state, user: null};
       }),

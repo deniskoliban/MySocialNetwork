@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppState} from '../../store/app.reducer';
-import {login, ResponseData, signup} from '../../components/auth/store/authActions';
+import {createUser, deleteUser} from '../../components/auth/store/authActions';
 import {Store} from '@ngrx/store';
 import {UserService} from './user.service';
+import {Router} from '@angular/router';
 
 export interface AuthResponse {
   idToken: string;
@@ -19,9 +20,15 @@ export interface AuthResponse {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private store: Store<AppState>, private userService: UserService) {
+  constructor(
+    private http: HttpClient,
+    private store: Store<AppState>,
+    private userService: UserService,
+    private router: Router,
+  ) {
     this.store.select('auth').subscribe((state) => {
-      console.log(state.user);
+      this.userService.user = state.user;
+      console.log(this.userService.user);
     });
   }
 
@@ -34,12 +41,12 @@ export class AuthService {
 
     this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKBZJPPGbP6QM_OOVnxXDxtRxM3mW0U8o', signUpData)
       .subscribe((authResponse: AuthResponse) => {
-        this.store.dispatch(login(authResponse));
-        this.userService.createUser(registerFormData.firstName, registerFormData.lastName);
+        this.store.dispatch(createUser(authResponse));
+        this.userService.postUserData(registerFormData.firstName, registerFormData.lastName);
+        this.navigateToContent();
       }, error => {
         console.log(error);
-        }
-        );
+        });
   }
 
   logIn(loginFormData): void {
@@ -52,9 +59,20 @@ export class AuthService {
     this.http.post(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAKBZJPPGbP6QM_OOVnxXDxtRxM3mW0U8o',
       loginData
-      ).subscribe((loginResponse: AuthResponse) => {
-        this.store.dispatch()
-    });
+      ).subscribe(
+        (loginResponse: AuthResponse) => {
+          this.store.dispatch(createUser(loginResponse));
+          this.navigateToContent();
+      }, error => {
+        console.log(error);
+      });
+  }
 
+  navigateToContent(): void {
+    this.router.navigate(['/content']);
+  }
+
+  logout(): void {
+    this.store.dispatch(deleteUser());
   }
 }

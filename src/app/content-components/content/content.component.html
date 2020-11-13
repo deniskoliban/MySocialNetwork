@@ -14,7 +14,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div style="height: 88vh;">
-      <h1 (click)="sidenav.toggle()" >Content</h1>
+      <h1 (click)="sidenav.toggle()"  *ngIf="userData">Hello {{userData.firstName}}</h1>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
