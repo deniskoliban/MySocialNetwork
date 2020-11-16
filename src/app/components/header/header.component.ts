@@ -3,6 +3,8 @@ import {SidenavService} from '../../services/services/sidenav.service';
 import {Subscription} from 'rxjs';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/services/auth.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.reducer';
 
 @Component({
   selector: 'app-header',
@@ -14,9 +16,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   sidebarBtnToggleColor: string = null;
   sidebar: any;
 
-  constructor(private sidenavService: SidenavService, private authService: AuthService) { }
+  constructor(
+    private sidenavService: SidenavService,
+    public authService: AuthService,
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit(): void {
+    this.store.select('auth')
+      .subscribe(
+        (state) => {
+          if (state.user) {
+            this.sidebarBtnToggleColor = 'primary';
+          } else {
+            this.sidebarBtnToggleColor = null;
+          }
+        }
+      );
     this.sidenavSubscription = this.sidenavService.sidenav.subscribe((sidebar) => {
       if (sidebar) {
         this.sidebar = sidebar;
