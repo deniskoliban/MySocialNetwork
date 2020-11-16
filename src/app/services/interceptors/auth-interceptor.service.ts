@@ -10,7 +10,7 @@ import {AppState} from '../../store/app.reducer';
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private userService: UserService, private store: Store<AppState>) { }
+  constructor(private userService: UserService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): any {
     if (!this.userService.user) {

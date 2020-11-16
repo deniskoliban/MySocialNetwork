@@ -28,7 +28,6 @@ export class AuthService {
   ) {
     this.store.select('auth').subscribe((state) => {
       this.userService.user = state.user;
-      console.log(this.userService.user);
     });
   }
 
@@ -39,7 +38,8 @@ export class AuthService {
       returnSecureToken: true
     };
 
-    this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKBZJPPGbP6QM_OOVnxXDxtRxM3mW0U8o', signUpData)
+    this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKBZJPPGbP6QM_OOVnxXDxtRxM3mW0U8o',
+      signUpData)
       .subscribe((authResponse: AuthResponse) => {
         this.store.dispatch(createUser(authResponse));
         this.userService.postUserData(registerFormData.firstName, registerFormData.lastName);
