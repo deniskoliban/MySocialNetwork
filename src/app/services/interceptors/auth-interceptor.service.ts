@@ -1,24 +1,32 @@
 import { Injectable } from '@angular/core';
 import {HttpHandler, HttpInterceptor, HttpParams, HttpRequest} from '@angular/common/http';
-import {UserService} from '../services/user.service';
-import {State, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
+import {switchMap} from 'rxjs/operators';
+import {User} from '../../components/auth/user.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
+  user: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private store: Store<AppState>) {
+    this.store.select('auth')
+      .subscribe((state) => {
+        this.user = state.user;
+      });
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): any {
-    if (!this.userService.user) {
+    if (!this.user) {
       return next.handle(req);
     }
     const modifiedReq = req.clone({
-      params: new HttpParams().set('auth', this.userService.user.idToken)
+      params: new HttpParams().set('auth', this.user.idToken)
     });
     return next.handle(modifiedReq);
   }
 }
+
