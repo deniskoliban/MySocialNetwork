@@ -17,6 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 import {StoreModule} from '@ngrx/store';
 import * as fromAppReducer from './store/app.reducer';
 import {AuthInterceptorService} from './services/interceptors/auth-interceptor.service';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './components/auth/store/auth-effects.service';
 
 
 
@@ -41,7 +43,8 @@ import {AuthInterceptorService} from './services/interceptors/auth-interceptor.s
     MaterialModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot(fromAppReducer.appReducer)
+    StoreModule.forRoot(fromAppReducer.appReducer),
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [
     {
