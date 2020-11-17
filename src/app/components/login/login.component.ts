@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../services/services/auth.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.reducer';
+import * as fromAuthActions from '../auth/store/authActions';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +16,14 @@ export class LoginComponent implements OnInit {
     password: new FormControl(null, [Validators.required]),
   };
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group(this.loginFormControls);
   }
 
   onSubmit(): void {
-    this.authService.logIn(this.loginForm.value);
+    this.store.dispatch(fromAuthActions.login(this.loginForm.value));
   }
 
 }

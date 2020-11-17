@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppState} from '../../store/app.reducer';
-import {createUser, deleteUser} from '../../components/auth/store/authActions';
+import {logout} from '../../components/auth/store/authActions';
 import {Store} from '@ngrx/store';
 import {UserService} from './user.service';
 import {Router} from '@angular/router';
+import {Observable, of} from 'rxjs';
+import {UserData} from '../../components/auth/store/authReducer';
+
 
 export interface AuthResponse {
   idToken: string;
@@ -19,6 +22,7 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
+  userData: UserData;
 
   constructor(
     private http: HttpClient,
@@ -27,45 +31,32 @@ export class AuthService {
     private router: Router,
   ) {
     this.store.select('auth').subscribe((state) => {
-      this.userService.user = state.user;
+      if (state.user) {
+        console.log(state.user);
+        this.navigateToContent();
+      }
     });
   }
 
-  signUp(registerFormData): void {
+  signUp(registerFormData): Observable<any> {
     const signUpData = {
       email: registerFormData.email,
       password: registerFormData.password,
       returnSecureToken: true
     };
-
-    this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKBZJPPGbP6QM_OOVnxXDxtRxM3mW0U8o',
-      signUpData)
-      .subscribe((authResponse: AuthResponse) => {
-        this.store.dispatch(createUser(authResponse));
-        this.userService.postUserData(registerFormData.firstName, registerFormData.lastName);
-        this.navigateToContent();
-      }, error => {
-        console.log(error);
-        });
+    return  this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKBZJPPGbP6QM_OOVnxXDxtRxM3mW0U8o',
+      signUpData);
   }
 
-  logIn(loginFormData): void {
+  logIn(loginFormData: {email: string, password: string}): Observable<AuthResponse> {
     const loginData = {
       email: loginFormData.email,
       password: loginFormData.password,
       returnSecureToken: true
     };
-
-    this.http.post(
+    return this.http.post<AuthResponse>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAKBZJPPGbP6QM_OOVnxXDxtRxM3mW0U8o',
-      loginData
-      ).subscribe(
-        (loginResponse: AuthResponse) => {
-          this.store.dispatch(createUser(loginResponse));
-          this.navigateToContent();
-      }, error => {
-        console.log(error);
-      });
+      loginData);
   }
 
   navigateToContent(): void {
@@ -73,6 +64,6 @@ export class AuthService {
   }
 
   logout(): void {
-    this.store.dispatch(deleteUser());
+    this.store.dispatch(logout());
   }
 }

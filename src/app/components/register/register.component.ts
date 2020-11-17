@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/services/auth.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.reducer';
+import {signup} from '../auth/store/authActions';
 
 
 @Component({
@@ -17,14 +20,15 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(null, [Validators.required]),
   };
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group(this.registerFormControls);
+    console.log(this.registerForm);
   }
 
   onSubmit(): void {
-    this.authService.signUp(this.registerForm.value);
+    this.store.dispatch(signup(this.registerForm.value));
   }
 
 }

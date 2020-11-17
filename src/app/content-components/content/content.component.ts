@@ -6,6 +6,8 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {HttpClient} from '@angular/common/http';
 import {map, take} from 'rxjs/operators';
+import {AuthService} from '../../services/services/auth.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-content',
@@ -18,30 +20,9 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   constructor(
     private sidenavService: SidenavService,
-    private store: Store<AppState>,
-    private userService: UserService,
-    private http: HttpClient
     ) { }
 
   ngOnInit(): void {
-    this.store.select('auth').pipe(take(1)).subscribe((state) => {
-        if (state.user) {
-          this.http.get(
-            `https://mysocialnetwork-ee2a9.firebaseio.com/users.json`
-          ).pipe(
-            map( (response) => {
-              return response[state.user.localId];
-            })
-          ).subscribe(
-            (responce) => {
-              this.userData = responce;
-              console.log(responce);
-            }, error => {
-              console.log(error);
-            }
-          );
-        }
-    });
   }
 
   ngAfterViewInit(): void {

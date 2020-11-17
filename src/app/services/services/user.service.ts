@@ -14,13 +14,5 @@ export class UserService {
   constructor(private http: HttpClient, private store: Store<AppState>) {
   }
 
-  postUserData(firstName: string, lastName: string): void {
-    if (this.user) {
-      this.http.put(
-        `https://mysocialnetwork-ee2a9.firebaseio.com/users/${this.user.localId}.json`,
-        {firstName, lastName}
-      ).subscribe((response) => {
-      });
-    }
-  }
+
 }
