@@ -13,7 +13,7 @@ export interface AuthResponse {
   idToken: string;
   email: string;
   refreshToken: string;
-  expiresIn: string;
+  expiresIn: string | Date;
   localId: string;
   registered?: boolean;
 }

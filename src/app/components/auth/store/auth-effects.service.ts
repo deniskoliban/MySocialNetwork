@@ -54,6 +54,12 @@ export class AuthEffects {
     switchMap(action => {
       return this.authService.logIn(action)
         .pipe(
+          map((authResponse) => {
+            return {
+              ...authResponse,
+              expiresIn: new Date(new Date().getTime() + +authResponse.expiresIn * 1000 )
+            };
+          }),
           switchMap(authResponse => [
             fromAuthActions.createUser(authResponse),
             fromAuthActions.getUserData({localId: authResponse.localId})

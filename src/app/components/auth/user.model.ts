@@ -6,7 +6,7 @@ export class User {
     public email: string,
     public localId: string,
     public idToken: string,
-    public expiresIn: Date,
+    public expiresIn: string | Date,
   ) {}
 
 
