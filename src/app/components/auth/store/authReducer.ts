@@ -33,10 +33,6 @@ const scoreboardReducer = createReducer(
     (state, userData) => {
       return {...state, userData: {...userData}};
     }),
-  on(AuthActions.signup,
-    state => {
-      return state;
-    }),
   on(AuthActions.logout,
       state => {
         return {...state, user: null, userData: null};
