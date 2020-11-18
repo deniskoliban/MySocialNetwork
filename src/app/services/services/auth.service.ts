@@ -31,7 +31,7 @@ export class AuthService {
   ) {
     this.store.select('auth').subscribe((state) => {
       console.log(state);
-      if (state.user) {
+      if (state.userData) {
         this.navigateToContent();
       }
     });
@@ -39,13 +39,13 @@ export class AuthService {
 
   getUserData(localId: string): Observable<UserData> {
     return this.http.get<UserData>(
-      `https://mysocialnetwork-ee2a9.firebaseio.com/user/${localId}.json`
+      `https://mysocialnetwork-ee2a9.firebaseio.com/users/${localId}.json`
     );
   }
 
   postUserData(firstName: string, lastName: string, localId: string): Observable<UserData> {
     return this.http.put<UserData>(
-      `https://mysocialnetwork-ee2a9.firebaseio.com/user/${localId}.json`,
+      `https://mysocialnetwork-ee2a9.firebaseio.com/users/${localId}.json`,
       {firstName, lastName}
     );
   }
