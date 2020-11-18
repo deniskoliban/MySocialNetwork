@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from './store/app.reducer';
+import {autoLogin} from './components/auth/store/authActions';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +10,10 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'SocialNetwork';
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit(): void {
+    this.store.dispatch(autoLogin());
   }
 }

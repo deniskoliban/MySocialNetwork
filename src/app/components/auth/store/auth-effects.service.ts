@@ -68,6 +68,9 @@ export class AuthEffects {
     ofType(fromAuthActions.autoLogin),
     switchMap(() => {
       let savedUser: AuthResponse = JSON.parse(localStorage.getItem('user')) ;
+      if (!savedUser) {
+        return [fromAuthActions.logout()];
+      }
       savedUser = {
         ...savedUser,
         expiresIn: new Date(savedUser.expiresIn)
