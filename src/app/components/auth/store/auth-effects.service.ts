@@ -11,6 +11,18 @@ import {of} from 'rxjs';
 })
 export class AuthEffects {
 
+  putUserDataEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.putUserData),
+    switchMap(action => {
+      return this.authService.postUserData(action.firstName, action.lastName, action.localId)
+        .pipe(
+          map((response) => fromAuthActions.putUserDataSuccess(response)),
+          catchError(error => of(fromAuthActions.loginFailure({error}))
+          ));
+    })
+    )
+  );
+
   signupEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.signup),
     switchMap(action => {
@@ -18,6 +30,7 @@ export class AuthEffects {
         .pipe(
           switchMap(authResponse => [
             fromAuthActions.createUser(authResponse),
+            fromAuthActions.putUserData({firstName: action.firstName, lastName: action.lastName, localId: authResponse.localId})
           ]),
           catchError(error => of(fromAuthActions.loginFailure({error}))
           ));
