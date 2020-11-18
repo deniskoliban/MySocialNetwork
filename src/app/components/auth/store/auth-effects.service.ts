@@ -11,6 +11,15 @@ import {of} from 'rxjs';
 })
 export class AuthEffects {
 
+
+  saveUser$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.createUser),
+    tap((action) => {
+      localStorage.setItem('user', JSON.stringify(action));
+    })
+  ), {dispatch: false}
+  );
+
   putUserDataEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.putUserData),
     switchMap(action => {
