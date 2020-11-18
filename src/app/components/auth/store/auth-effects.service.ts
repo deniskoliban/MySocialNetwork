@@ -38,6 +38,17 @@ export class AuthEffects {
     )
   );
 
+  getUserDataEffect = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.getUserData),
+    switchMap(action => {
+      return this.authService.getUserData(action.localId)
+        .pipe(
+          map((response) => fromAuthActions.getUserDataSuccess(response)),
+          catchError((error) => of(fromAuthActions.loginFailure({error}))
+        ));
+    })
+  ));
+
   loginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.login),
     switchMap(action => {
