@@ -10,11 +10,13 @@ export interface UserData {
 export interface State {
   user: User;
   userData: UserData;
+  error: any;
 }
 
 const initialState: State = {
   user: null,
-  userData: null
+  userData: null,
+  error: null,
 };
 
 const scoreboardReducer = createReducer(
