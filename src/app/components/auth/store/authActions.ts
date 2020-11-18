@@ -36,6 +36,11 @@ export const putUserData = createAction(
   }>()
 );
 
+export const putUserDataSuccess = createAction(
+  'PUT_USER_DATA_SUCCESS',
+  props<UserData>()
+);
+
 export const logout = createAction(
   'LOGOUT',
 );
