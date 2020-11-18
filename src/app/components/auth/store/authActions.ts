@@ -8,8 +8,8 @@ export const login = createAction(
   props<{email: string, password: string}>()
 );
 
-export const loginFailure = createAction(
-  'LOGIN_FAILURE',
+export const httpErrorResponse = createAction(
+  'HTTP_ERROR_RESPONSE',
   props<{error: HttpErrorResponse}>()
 );
 

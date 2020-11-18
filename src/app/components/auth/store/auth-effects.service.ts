@@ -17,7 +17,7 @@ export class AuthEffects {
       return this.authService.postUserData(action.firstName, action.lastName, action.localId)
         .pipe(
           map((response) => fromAuthActions.putUserDataSuccess(response)),
-          catchError(error => of(fromAuthActions.loginFailure({error}))
+          catchError(error => of(fromAuthActions.httpErrorResponse({error}))
           ));
     })
     )
@@ -32,7 +32,7 @@ export class AuthEffects {
             fromAuthActions.createUser(authResponse),
             fromAuthActions.putUserData({firstName: action.firstName, lastName: action.lastName, localId: authResponse.localId})
           ]),
-          catchError(error => of(fromAuthActions.loginFailure({error}))
+          catchError(error => of(fromAuthActions.httpErrorResponse({error}))
           ));
     })
     )
@@ -44,7 +44,7 @@ export class AuthEffects {
       return this.authService.getUserData(action.localId)
         .pipe(
           map((response) => fromAuthActions.getUserDataSuccess(response)),
-          catchError((error) => of(fromAuthActions.loginFailure({error}))
+          catchError((error) => of(fromAuthActions.httpErrorResponse({error}))
         ));
     })
   ));
@@ -58,7 +58,7 @@ export class AuthEffects {
             fromAuthActions.createUser(authResponse),
             fromAuthActions.getUserData({localId: authResponse.localId})
           ]),
-          catchError((error) => of(fromAuthActions.loginFailure({error}))
+          catchError((error) => of(fromAuthActions.httpErrorResponse({error}))
           ));
     })
     )

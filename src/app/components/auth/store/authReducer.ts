@@ -1,4 +1,4 @@
-import {Action, createReducer, on, props} from '@ngrx/store';
+import {Action, createReducer, on} from '@ngrx/store';
 import * as AuthActions from './authActions';
 import {User} from '../user.model';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -44,7 +44,7 @@ const scoreboardReducer = createReducer(
       state => {
         return {...state, user: null, userData: null};
       }),
-  on(AuthActions.loginFailure,
+  on(AuthActions.httpErrorResponse,
     (state, err) => {
       return {...state, httpResponseError: err.error};
     }),

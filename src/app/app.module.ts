@@ -19,6 +19,7 @@ import * as fromAppReducer from './store/app.reducer';
 import {AuthInterceptorService} from './services/interceptors/auth-interceptor.service';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './components/auth/store/auth-effects.service';
+import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
 
 
 
@@ -32,6 +33,7 @@ import {AuthEffects} from './components/auth/store/auth-effects.service';
     AuthComponent,
     RegisterComponent,
     LoginComponent,
+    SnackBarComponent,
   ],
   imports: [
     BrowserModule,
