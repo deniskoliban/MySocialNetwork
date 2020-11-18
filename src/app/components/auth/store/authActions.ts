@@ -46,6 +46,10 @@ export const getUserData = createAction(
   props<{ localId: string }>()
 );
 
+export const getUserDataSuccess = createAction(
+  'GET_USER_DATA_SUCCESS',
+  props<UserData>()
+);
 
 export const logout = createAction(
   'LOGOUT',
