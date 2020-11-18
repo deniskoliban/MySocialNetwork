@@ -37,6 +37,13 @@ export class AuthService {
     });
   }
 
+  postUserData(firstName: string, lastName: string, localId: string): Observable<UserData> {
+    return this.http.put<UserData>(
+      `https://mysocialnetwork-ee2a9.firebaseio.com/user/${localId}.json`,
+      {firstName, lastName}
+    );
+  }
+
   signUp(registerFormData): Observable<any> {
     const signUpData = {
       email: registerFormData.email,
