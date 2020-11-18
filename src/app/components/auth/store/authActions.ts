@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {AuthResponse} from '../../../services/services/auth.service';
+import {UserData} from './authReducer';
 
 export const login = createAction(
   'LOGIN_START',
@@ -24,6 +25,15 @@ export const signup = createAction(
 export const createUser = createAction(
   'CREATE_USER',
   props<AuthResponse>()
+);
+
+export const putUserData = createAction(
+  'PUT_USER_DATA',
+  props<{
+    firstName: string,
+    lastName: string,
+    localId: string
+  }>()
 );
 
 export const logout = createAction(
