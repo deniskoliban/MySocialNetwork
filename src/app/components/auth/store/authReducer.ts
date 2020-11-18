@@ -47,6 +47,10 @@ const scoreboardReducer = createReducer(
     (state) => {
       return {...state, isLoading: true};
     }),
+  on(AuthActions.loadingStop,
+    (state) => {
+      return {...state, isLoading: false};
+    }),
   on(AuthActions.logout,
       state => {
         return {...state, user: null, userData: null};
