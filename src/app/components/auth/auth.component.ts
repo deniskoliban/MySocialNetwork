@@ -12,12 +12,14 @@ import {AppState} from '../../store/app.reducer';
 })
 export class AuthComponent implements OnInit {
   register = false;
+  isLoading = false;
 
   constructor(public snackBar: MatSnackBar, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.store.select('auth').subscribe(
       (state) => {
+        this.isLoading = state.isLoading;
         if (state.httpResponseError) {
           this.openSnackBar(state.httpResponseError.error.error.message);
         }

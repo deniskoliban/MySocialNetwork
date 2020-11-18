@@ -31,7 +31,10 @@ export class AuthEffects {
     switchMap(action => {
       return this.authService.postUserData(action.firstName, action.lastName, action.localId)
         .pipe(
-          map((response) => fromAuthActions.putUserDataSuccess(response)),
+          switchMap((response) => [
+            fromAuthActions.putUserDataSuccess(response),
+            fromAuthActions.loadingStop(),
+          ]),
           catchError(error => of(fromAuthActions.httpErrorResponse({error}))
           ));
     })
@@ -44,6 +47,7 @@ export class AuthEffects {
       return this.authService.signUp(action)
         .pipe(
           switchMap(authResponse => [
+            fromAuthActions.loadingStart(),
             fromAuthActions.createUser(authResponse),
             fromAuthActions.putUserData({firstName: action.firstName, lastName: action.lastName, localId: authResponse.localId})
           ]),
@@ -58,7 +62,10 @@ export class AuthEffects {
     switchMap(action => {
       return this.authService.getUserData(action.localId)
         .pipe(
-          map((response) => fromAuthActions.getUserDataSuccess(response)),
+          switchMap((response) => [
+            fromAuthActions.getUserDataSuccess(response),
+            fromAuthActions.loadingStop()
+          ]),
           catchError((error) => of(fromAuthActions.httpErrorResponse({error}))
         ));
     })
@@ -76,8 +83,9 @@ export class AuthEffects {
         expiresIn: new Date(savedUser.expiresIn)
       };
       return [
+        fromAuthActions.loadingStart(),
         fromAuthActions.createUser(savedUser),
-        fromAuthActions.getUserData({localId: savedUser.localId})
+        fromAuthActions.getUserData({localId: savedUser.localId}),
       ];
     })
   ));
@@ -94,6 +102,7 @@ export class AuthEffects {
             };
           }),
           switchMap(authResponse => [
+            fromAuthActions.loadingStart(),
             fromAuthActions.createUser(authResponse),
             fromAuthActions.getUserData({localId: authResponse.localId})
           ]),
