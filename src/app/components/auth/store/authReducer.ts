@@ -12,12 +12,14 @@ export interface State {
   user: User;
   userData: UserData;
   httpResponseError: HttpErrorResponse;
+  isLoading: boolean;
 }
 
 const initialState: State = {
   user: null,
   userData: null,
   httpResponseError: null,
+  isLoading: false
 };
 
 const scoreboardReducer = createReducer(
