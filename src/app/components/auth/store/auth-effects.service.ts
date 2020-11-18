@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import * as fromAuthActions from './authActions';
-import {AuthService} from '../../../services/services/auth.service';
+import {AuthResponse, AuthService} from '../../../services/services/auth.service';
 import {of} from 'rxjs';
 
 
@@ -61,6 +61,21 @@ export class AuthEffects {
           map((response) => fromAuthActions.getUserDataSuccess(response)),
           catchError((error) => of(fromAuthActions.httpErrorResponse({error}))
         ));
+    })
+  ));
+
+  autoLoginEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.autoLogin),
+    switchMap(() => {
+      let savedUser: AuthResponse = JSON.parse(localStorage.getItem('user')) ;
+      savedUser = {
+        ...savedUser,
+        expiresIn: new Date(savedUser.expiresIn)
+      };
+      return [
+        fromAuthActions.createUser(savedUser),
+        fromAuthActions.getUserData({localId: savedUser.localId})
+      ];
     })
   ));
 
