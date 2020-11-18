@@ -10,7 +10,13 @@ import {of} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthEffects {
-
+  clearUser$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.logout),
+    tap((action) => {
+      localStorage.removeItem('user');
+    })
+    ), {dispatch: false}
+  );
 
   saveUser$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.createUser),
