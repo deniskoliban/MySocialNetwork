@@ -44,7 +44,7 @@ export class AuthService {
     );
   }
 
-  signUp(registerFormData): Observable<any> {
+  signUp(registerFormData): Observable<AuthResponse> {
     const signUpData = {
       email: registerFormData.email,
       password: registerFormData.password,
