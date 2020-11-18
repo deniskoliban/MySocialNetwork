@@ -22,7 +22,6 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  userData: UserData;
 
   constructor(
     private http: HttpClient,
@@ -31,8 +30,8 @@ export class AuthService {
     private router: Router,
   ) {
     this.store.select('auth').subscribe((state) => {
+      console.log(state);
       if (state.user) {
-        console.log(state.user);
         this.navigateToContent();
       }
     });

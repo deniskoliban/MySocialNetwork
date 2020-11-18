@@ -24,7 +24,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group(this.registerFormControls);
-    console.log(this.registerForm);
   }
 
   onSubmit(): void {
