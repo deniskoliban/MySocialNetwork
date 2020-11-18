@@ -52,6 +52,10 @@ export const getUserDataSuccess = createAction(
   props<UserData>()
 );
 
+export const autoLogin = createAction(
+  'AUTO_LOGIN',
+);
+
 export const logout = createAction(
   'LOGOUT',
 );
