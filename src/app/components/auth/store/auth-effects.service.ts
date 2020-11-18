@@ -10,10 +10,21 @@ import {of} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthEffects {
+  autoLogout$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.autoLogout),
+    tap((action) => {
+      const expiresIn = new Date(action.expirationDate).getTime() - new Date().getTime();
+      this.authService.autoLogout(expiresIn);
+    })
+  ), {dispatch: false}) ;
+
   clearUser$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.logout),
     tap((action) => {
       localStorage.removeItem('user');
+      if (this.authService.logoutTimer) {
+        clearTimeout(this.authService.logoutTimer);
+      }
     })
     ), {dispatch: false}
   );
@@ -22,8 +33,9 @@ export class AuthEffects {
     ofType(fromAuthActions.createUser),
     tap((action) => {
       localStorage.setItem('user', JSON.stringify(action));
-    })
-  ), {dispatch: false}
+    }),
+    map((action) => fromAuthActions.autoLogout({expirationDate: action.expiresIn}))
+  )
   );
 
   putUserDataEffect$ = createEffect(() => this.actions$.pipe(

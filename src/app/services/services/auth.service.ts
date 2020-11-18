@@ -22,6 +22,7 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
+  logoutTimer = null;
 
   constructor(
     private http: HttpClient,
@@ -35,6 +36,12 @@ export class AuthService {
         this.navigateToContent();
       }
     });
+  }
+
+  autoLogout(expirationTimer: number): void {
+    this.logoutTimer = setTimeout(() => {
+      this.store.dispatch(logout());
+    }, expirationTimer);
   }
 
   getUserData(localId: string): Observable<UserData> {
