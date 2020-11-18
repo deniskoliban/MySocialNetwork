@@ -64,6 +64,11 @@ export const loadingStop = createAction(
   'LOADING_STOP',
 );
 
+export const autoLogout = createAction(
+  'AUTO_LOGOUT',
+  props<{expirationDate: string | Date}>()
+);
+
 export const logout = createAction(
   'LOGOUT',
 );
