@@ -19,16 +19,20 @@ const initialState: State = {
 
 const scoreboardReducer = createReducer(
   initialState,
-  on(AuthActions.createUser, (state: State, userData) => {
+  on(AuthActions.createUser, (state: State, user) => {
     return ({
       ...state,
       user: new User(
-        userData.email,
-        userData.localId,
-        userData.idToken,
-        new Date(new Date().getTime() + +userData.expiresIn * 1000 ))
+        user.email,
+        user.localId,
+        user.idToken,
+        new Date(new Date().getTime() + +user.expiresIn * 1000 ))
     });
   }),
+  on(AuthActions.putUserDataSuccess,
+    (state, userData) => {
+      return {...state, userData: {...userData}};
+    }),
   on(AuthActions.signup,
     state => {
       return state;
