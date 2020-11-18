@@ -60,6 +60,10 @@ export const loadingStart = createAction(
   'LOADING_START',
 );
 
+export const loadingStop = createAction(
+  'LOADING_STOP',
+);
+
 export const logout = createAction(
   'LOGOUT',
 );
