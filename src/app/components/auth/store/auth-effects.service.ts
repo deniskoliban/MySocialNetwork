@@ -52,9 +52,12 @@ export class AuthEffects {
   loginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.login),
     switchMap(action => {
-      return this.authService.logIn({email: action.email, password: action.password})
+      return this.authService.logIn(action)
         .pipe(
-          map((authResponse) => fromAuthActions.createUser(authResponse)),
+          switchMap(authResponse => [
+            fromAuthActions.createUser(authResponse),
+            fromAuthActions.getUserData({localId: authResponse.localId})
+          ]),
           catchError((error) => of(fromAuthActions.loginFailure({error}))
           ));
     })
