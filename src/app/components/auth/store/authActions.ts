@@ -56,6 +56,10 @@ export const autoLogin = createAction(
   'AUTO_LOGIN',
 );
 
+export const loadingStart = createAction(
+  'LOADING_START',
+);
+
 export const logout = createAction(
   'LOGOUT',
 );
