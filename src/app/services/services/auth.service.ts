@@ -37,6 +37,12 @@ export class AuthService {
     });
   }
 
+  getUserData(localId: string): Observable<UserData> {
+    return this.http.get<UserData>(
+      `https://mysocialnetwork-ee2a9.firebaseio.com/user/${localId}.json`
+    );
+  }
+
   postUserData(firstName: string, lastName: string, localId: string): Observable<UserData> {
     return this.http.put<UserData>(
       `https://mysocialnetwork-ee2a9.firebaseio.com/user/${localId}.json`,
