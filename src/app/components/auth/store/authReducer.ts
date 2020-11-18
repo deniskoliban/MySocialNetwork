@@ -1,6 +1,7 @@
 import {Action, createReducer, on, props} from '@ngrx/store';
 import * as AuthActions from './authActions';
 import {User} from '../user.model';
+import {HttpErrorResponse} from '@angular/common/http';
 
 export interface UserData {
   firstName: string;
@@ -10,13 +11,13 @@ export interface UserData {
 export interface State {
   user: User;
   userData: UserData;
-  error: any;
+  httpResponseError: HttpErrorResponse;
 }
 
 const initialState: State = {
   user: null,
   userData: null,
-  error: null,
+  httpResponseError: null,
 };
 
 const scoreboardReducer = createReducer(
@@ -44,8 +45,8 @@ const scoreboardReducer = createReducer(
         return {...state, user: null, userData: null};
       }),
   on(AuthActions.loginFailure,
-    (state, error) => {
-      return state;
+    (state, err) => {
+      return {...state, httpResponseError: err.error};
     }),
 );
 

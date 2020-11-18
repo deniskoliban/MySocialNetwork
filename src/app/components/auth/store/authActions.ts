@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import {AuthResponse} from '../../../services/services/auth.service';
 import {UserData} from './authReducer';
+import {HttpErrorResponse} from '@angular/common/http';
 
 export const login = createAction(
   'LOGIN_START',
@@ -9,7 +10,7 @@ export const login = createAction(
 
 export const loginFailure = createAction(
   'LOGIN_FAILURE',
-  props<{error: any}>()
+  props<{error: HttpErrorResponse}>()
 );
 
 export const signup = createAction(
