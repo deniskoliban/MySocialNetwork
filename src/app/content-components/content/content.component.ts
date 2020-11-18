@@ -1,13 +1,11 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {SidenavService} from '../../services/services/sidenav.service';
-import {UserService} from '../../services/services/user.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
-import {HttpClient} from '@angular/common/http';
-import {map, take} from 'rxjs/operators';
-import {AuthService} from '../../services/services/auth.service';
+import {UserData} from '../../components/auth/store/authReducer';
 import {Observable} from 'rxjs';
+
 
 @Component({
   selector: 'app-content',
@@ -16,13 +14,19 @@ import {Observable} from 'rxjs';
 })
 export class ContentComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav') sidenav: ElementRef<MatSidenav>;
-  userData: any;
+  userData: UserData;
 
   constructor(
     private sidenavService: SidenavService,
+    private store: Store<AppState>,
     ) { }
 
   ngOnInit(): void {
+    this.store.select('auth').subscribe(
+      (state) => {
+        this.userData = state.userData;
+      }
+    );
   }
 
   ngAfterViewInit(): void {
