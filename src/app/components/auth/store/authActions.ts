@@ -12,7 +12,6 @@ export const login = createAction(
 
 export const httpErrorAlert = createAction(
   'HTTP_ERROR_ALERT',
-  props<{errorMessage: string}>()
 );
 
 export const httpErrorResponse = createAction(

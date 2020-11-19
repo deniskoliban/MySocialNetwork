@@ -10,6 +10,14 @@ import {of} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthEffects {
+  httpErrorEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.httpErrorResponse),
+    tap((action) => {
+      this.authService.openSnackBar(action.error.message);
+    }),
+    map(() => fromAuthActions.httpErrorAlert())
+  ));
+
   autoLogout$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.autoLogout),
     tap((action) => {

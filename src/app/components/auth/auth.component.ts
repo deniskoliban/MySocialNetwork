@@ -14,7 +14,7 @@ export class AuthComponent implements OnInit {
   register = false;
   isLoading = false;
 
-  constructor(public snackBar: MatSnackBar, private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.store.select('auth').subscribe(
@@ -23,12 +23,6 @@ export class AuthComponent implements OnInit {
       }
     );
   }
-  openSnackBar(message: string): void {
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      verticalPosition: 'top',
-      duration: 3000,
-      data: message
-    });
-  }
+
 
 }
