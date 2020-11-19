@@ -10,11 +10,13 @@ import {of} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthEffects {
+  loadingStopEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.loadingStop),
+    tap(() => this.authService.navigateToContent())
+  ), {dispatch: false});
+
   httpErrorEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.httpErrorResponse),
-    tap((action) => {
-      this.authService.openSnackBar(action.error.message);
-    }),
     map(() => fromAuthActions.httpErrorAlert())
   ));
 
