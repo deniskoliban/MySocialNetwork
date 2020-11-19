@@ -3,9 +3,16 @@ import {AuthResponse} from '../../../services/services/auth.service';
 import {UserData} from './authReducer';
 import {HttpErrorResponse} from '@angular/common/http';
 
+
+
 export const login = createAction(
   'LOGIN_START',
   props<{email: string, password: string}>()
+);
+
+export const httpErrorAlert = createAction(
+  'HTTP_ERROR_ALERT',
+  props<{errorMessage: string}>()
 );
 
 export const httpErrorResponse = createAction(
