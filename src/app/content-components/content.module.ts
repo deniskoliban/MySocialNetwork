@@ -7,6 +7,7 @@ import {MaterialModule} from '../modules/app.material.module';
 import {ContentComponent} from './content/content.component';
 import {AuthInterceptorService} from '../services/interceptors/auth-interceptor.service';
 import { ProfileComponent } from './profile/profile.component';
+import { PostsComponent } from './posts/posts.component';
 
 
 const httpRoutes = [
@@ -14,7 +15,7 @@ const httpRoutes = [
 ];
 
 @NgModule({
-  declarations: [ContentComponent, ProfileComponent],
+  declarations: [ContentComponent, ProfileComponent, PostsComponent],
   imports: [
     RouterModule.forChild(httpRoutes),
     CommonModule,
