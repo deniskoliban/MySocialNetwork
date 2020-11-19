@@ -1,6 +1,6 @@
 <div class="mat-app-background" style="display: flex; justify-content: center; height: 93vh;">
   <div>
-    <mat-tab-group mat-align-tabs="center" *ngIf="!isLoading" >
+    <mat-tab-group mat-align-tabs="center" >
       <mat-tab label="Login" style="overflow: hidden">
         <div>
           <app-login></app-login>
@@ -13,6 +13,5 @@
       </mat-tab>
     </mat-tab-group>
   </div>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
 </div>
 
