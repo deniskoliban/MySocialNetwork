@@ -59,6 +59,10 @@ const scoreboardReducer = createReducer(
     (state, err) => {
       return {...state, httpResponseError: err.error};
     }),
+  on(AuthActions.httpErrorAlert,
+    (state) => {
+      return {...state, httpResponseError: null};
+    }),
 );
 
 export function reducer(state: State | undefined, action: Action): State {
