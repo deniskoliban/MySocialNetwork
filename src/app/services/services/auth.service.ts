@@ -7,8 +7,6 @@ import {UserService} from './user.service';
 import {Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {UserData} from '../../components/auth/store/authReducer';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {SnackBarComponent} from '../../shared/snack-bar/snack-bar.component';
 
 
 export interface AuthResponse {
@@ -31,21 +29,9 @@ export class AuthService {
     private store: Store<AppState>,
     private userService: UserService,
     private router: Router,
-    public snackBar: MatSnackBar
   ) {
     this.store.select('auth').subscribe((state) => {
       console.log(state);
-      if (state.userData) {
-        this.navigateToContent();
-      }
-    });
-  }
-
-  openSnackBar(message: string): void {
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      verticalPosition: 'top',
-      duration: 3000,
-      data: message
     });
   }
 
