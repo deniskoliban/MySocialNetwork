@@ -75,6 +75,10 @@ export const autoLogout = createAction(
   props<{expirationDate: string | Date}>()
 );
 
+export const navigateToContent = createAction(
+  'NAVIGATE_TO_CONTENT',
+);
+
 export const logout = createAction(
   'LOGOUT',
 );

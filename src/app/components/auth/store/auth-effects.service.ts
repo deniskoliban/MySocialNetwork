@@ -10,10 +10,16 @@ import {of} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthEffects {
-  loadingStopEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(fromAuthActions.loadingStop),
+  navigateToContentEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.navigateToContent),
     tap(() => this.authService.navigateToContent())
   ), {dispatch: false});
+
+
+  /*loadingStopEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.loadingStop),
+    tap(() => this.authService.navigateToContent())
+  ), {dispatch: false});*/
 
   httpErrorEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.httpErrorResponse),
@@ -55,6 +61,7 @@ export class AuthEffects {
         .pipe(
           switchMap((response) => [
             fromAuthActions.putUserDataSuccess(response),
+            fromAuthActions.navigateToContent(),
             fromAuthActions.loadingStop(),
           ]),
           catchError(error => of(fromAuthActions.httpErrorResponse({error}))
@@ -86,6 +93,7 @@ export class AuthEffects {
         .pipe(
           switchMap((response) => [
             fromAuthActions.getUserDataSuccess(response),
+            fromAuthActions.navigateToContent(),
             fromAuthActions.loadingStop()
           ]),
           catchError((error) => of(fromAuthActions.httpErrorResponse({error}))
