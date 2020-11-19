@@ -9,6 +9,7 @@ import {AuthInterceptorService} from '../services/interceptors/auth-interceptor.
 import { ProfileComponent } from './profile/profile.component';
 import { PostsComponent } from './posts/posts.component';
 import { MessagesComponent } from './messages/messages.component';
+import {ContentRoutingModule} from './content-routing.module';
 
 
 const httpRoutes = [
@@ -18,7 +19,7 @@ const httpRoutes = [
 @NgModule({
   declarations: [ContentComponent, ProfileComponent, PostsComponent, MessagesComponent],
   imports: [
-    RouterModule.forChild(httpRoutes),
+    ContentRoutingModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
