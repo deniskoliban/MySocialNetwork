@@ -20,9 +20,6 @@ export class AuthComponent implements OnInit {
     this.store.select('auth').subscribe(
       (state) => {
         this.isLoading = state.isLoading;
-        if (state.httpResponseError) {
-          this.openSnackBar(state.httpResponseError.error.error.message);
-        }
       }
     );
   }
