@@ -22,6 +22,7 @@ import {AuthEffects} from './components/auth/store/auth-effects.service';
 import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
 
 
 
@@ -48,8 +49,8 @@ import {environment} from '../environments/environment';
     HttpClientModule,
     StoreModule.forRoot(fromAppReducer.appReducer),
     EffectsModule.forRoot([AuthEffects]),
-    StoreDevtoolsModule.instrument({logOnly: environment.production})
-    StoreRouterConectingModule.forRoot(),
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [
     {
