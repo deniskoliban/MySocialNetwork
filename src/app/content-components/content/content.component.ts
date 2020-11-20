@@ -4,7 +4,6 @@ import {SidenavService} from '../../services/services/sidenav.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {UserData} from '../../components/auth/store/authReducer';
-import {Observable} from 'rxjs';
 
 
 @Component({

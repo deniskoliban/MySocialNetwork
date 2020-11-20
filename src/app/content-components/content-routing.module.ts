@@ -6,10 +6,11 @@ import {ProfileComponent} from './profile/profile.component';
 import {MessagesComponent} from './messages/messages.component';
 
 const ContentRoutingComponents = [
-  {path: '', component: ContentComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'posts', component: PostsComponent},
-  {path: 'messages', component: MessagesComponent},
+  {path: '', component: ContentComponent, children: [
+      {path: 'profile', component: ProfileComponent},
+      {path: 'posts', component: PostsComponent},
+      {path: 'messages', component: MessagesComponent},
+    ]},
 ];
 
 

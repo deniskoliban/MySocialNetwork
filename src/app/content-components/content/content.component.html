@@ -2,9 +2,9 @@
   <mat-sidenav #sidenav mode="push" >
     <mat-nav-list>
 
-      <a mat-list-item > Profile </a>
-      <a mat-list-item > Posts </a>
-      <a mat-list-item > Messages </a>
+      <a mat-list-item (click)="sidenav.toggle()" routerLink="profile" > Profile </a>
+      <a mat-list-item (click)="sidenav.toggle()" routerLink="posts" > Posts </a>
+      <a mat-list-item (click)="sidenav.toggle()" routerLink="messages" > Messages </a>
       <a mat-list-item (click)="sidenav.toggle()" >Close</a>
 
     </mat-nav-list>
@@ -12,6 +12,7 @@
   <mat-sidenav-content>
     <div style="height: 88vh;">
       <h1 style="display: flex; justify-content: center" *ngIf="userData" >Hello {{userData.firstName}} {{userData.lastName}}</h1>
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
