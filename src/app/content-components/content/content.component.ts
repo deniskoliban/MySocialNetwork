@@ -13,19 +13,12 @@ import {UserData} from '../../components/auth/store/authReducer';
 })
 export class ContentComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav') sidenav: ElementRef<MatSidenav>;
-  userData: UserData;
 
   constructor(
     private sidenavService: SidenavService,
-    private store: Store<AppState>,
     ) { }
 
   ngOnInit(): void {
-    this.store.select('auth').subscribe(
-      (state) => {
-        this.userData = state.userData;
-      }
-    );
   }
 
   ngAfterViewInit(): void {
