@@ -1,0 +1,55 @@
+.messages-container{
+  display: flex;
+  justify-content: center;
+}
+
+.messages {
+  display: flex;
+  justify-content: center;
+  height: 85vh;
+  width: 100vw;
+  padding: 4px;
+  border: 1px solid white;
+  border-radius: 8px;
+}
+
+.rooms-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 99%;
+  width: 35%;
+}
+
+.search-in-rooms{
+  height: 15%;
+  width: 98%;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+
+.rooms {
+  height: 85%;
+  width: 98%;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+
+.room-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 99%;
+  width: 65%;
+}
+
+.room {
+  height: 100%;
+  width: 98%;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+
+
