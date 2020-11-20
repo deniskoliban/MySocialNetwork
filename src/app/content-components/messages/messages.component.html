@@ -2,7 +2,9 @@
   <div class="messages">
     <div class="rooms-container">
       <div class="search-in-rooms">Search</div>
-      <div class="rooms">Rooms</div>
+      <div class="rooms">
+        <app-chat-item *ngFor="let chat of messages.chats"></app-chat-item>
+      </div>
     </div>
     <div class="middle-container" ></div>
     <div class="room-container">

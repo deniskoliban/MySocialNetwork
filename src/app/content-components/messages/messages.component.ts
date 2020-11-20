@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {State} from './store/messages.reducer';
 
 @Component({
   selector: 'app-messages',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
+  messages: State;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.messages = {
+     chats: [
+       {
+         users: ['harry', 'liza'],
+         messages: [
+           {
+             user: 'harry',
+             text: 'hi',
+             date: 'new Date()'
+           }
+         ]
+       }
+     ]
+    };
   }
 
 }

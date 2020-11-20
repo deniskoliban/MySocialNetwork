@@ -3,7 +3,6 @@ import * as MessagesActions from './messages.actions';
 
 
 export interface State {
-  messages: {
     chats: [
       chat: {
         users: string[],
@@ -11,16 +10,15 @@ export interface State {
           message: {
             user: string,
             text: string,
-            date: Date,
+            date: string,
           }
         ],
       }
-    ]
-  };
+    ];
 }
 
 const initialState: State = {
-  messages: null
+  chats: null
 };
 
 const messagesReducer = createReducer(
