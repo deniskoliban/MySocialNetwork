@@ -11,6 +11,7 @@ import { PostsComponent } from './posts/posts.component';
 import { MessagesComponent } from './messages/messages.component';
 import {ContentRoutingModule} from './content-routing.module';
 import { ChatItemComponent } from './chat-item/chat-item.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 const httpRoutes = [
@@ -18,7 +19,7 @@ const httpRoutes = [
 ];
 
 @NgModule({
-  declarations: [ContentComponent, ProfileComponent, PostsComponent, MessagesComponent, ChatItemComponent],
+  declarations: [ContentComponent, ProfileComponent, PostsComponent, MessagesComponent, ChatItemComponent, ChatComponent],
   imports: [
     ContentRoutingModule,
     CommonModule,
