@@ -8,7 +8,7 @@
     </mat-card-header>
     <hr>
     <mat-card-content>
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="profileForm">
         <mat-selection-list [multiple]="false">
           <mat-list-option role="listitem" *ngFor="let item of profileList; let i = index"
                            (click)="startEditProfileListItem(i)">
@@ -19,7 +19,6 @@
                   <mat-label>{{item.name | titlecase}}</mat-label>
                   <input
                     matInput
-                    [(ngModel)]="item.innerText"
                     [formControl]="profileFormControls[item.name]"
                   >
                 </mat-form-field>

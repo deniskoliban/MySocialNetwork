@@ -4,9 +4,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Observable, of} from 'rxjs';
-import {logout} from '../../components/auth/store/authActions';
-import {putProfile} from './store/profile.actions';
+import {getProfile, putProfile} from './store/profile.actions';
 import {Profile} from './store/profile.reducer';
 
 export interface ProfileListItem {
@@ -27,16 +25,23 @@ export class ProfileComponent implements OnInit {
   userData: UserData;
   profileForm: FormGroup;
   profileFormControls = {};
-  profileListNames = ['age', 'country', 'city', 'gender', 'hobbies', 'about'];
   profileList: ProfileListItem[] = [];
 
-  constructor(private store: Store<AppState>, private storage: AngularFireStorage, private fb: FormBuilder) { }
+  constructor(
+    private store: Store<AppState>,
+    private storage: AngularFireStorage,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.subscribeToUserData();
-    this.initProfileList();
-    this.initProfileForm();
-    this.profileForm = this.fb.group(this.profileFormControls);
+    this.store.dispatch(getProfile());
+    this.store.select('profile')
+      .subscribe((state) => {
+        this.initProfileList(state.profile);
+        this.initProfileFormControls();
+        this.profileForm = this.fb.group(this.profileFormControls);
+      });
   }
 
   editProfileListItem(index, event): void {
@@ -53,34 +58,27 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch(putProfile({profile: {...this.profileForm.value as Profile}}));
   }
 
-  initProfileList(): void {
-    let profile;
-    this.store.select('profile')
-      .subscribe((state) => {
-        profile = state.profile;
-      });
-
-    this.profileListNames.map(
-      (el) => {
-        this.profileList
-          .push(
-            {
-              innerText: profile[el],
-              name: el,
+  initProfileList(profile): void {
+    let count = 0;
+    for (const key in profile) {
+      if (profile.hasOwnProperty(key)) {
+        this.profileList[count] = {
+              innerText: profile[key],
+              name: key,
               isEdit: false
-            }
-          );
+            };
+        count++;
       }
-    );
+    }
   }
 
-  initProfileForm(): void {
+  initProfileFormControls(): void {
     this.profileList.map(
       (el) => {
         this.profileFormControls[el.name] = new FormControl(null);
+        this.profileFormControls[el.name].value = el.innerText;
       }
     );
-    console.log(this.profileFormControls);
   }
 
   subscribeToUserData(): void {
@@ -102,7 +100,7 @@ export class ProfileComponent implements OnInit {
 
     task.then(
       snapshot => snapshot.ref.getDownloadURL()
-    ).then(ur => this.avatar.nativeElement.style.backgroundImage = `url(${ur})`);
+    ).then(url => this.avatar.nativeElement.style.backgroundImage = `url(${url})`);
   }
 
   chooseFile(): void {
