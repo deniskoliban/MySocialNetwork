@@ -97,9 +97,8 @@ export class AuthEffects {
             fromAuthActions.loadingStop()
           ]),
           catchError((error) => of(fromAuthActions.httpErrorResponse({error}))
-        ));
-    })
-  ));
+          ));
+    })));
 
   autoLoginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.autoLogin),
@@ -117,8 +116,9 @@ export class AuthEffects {
         fromAuthActions.createUser(savedUser),
         fromAuthActions.getUserData({localId: savedUser.localId}),
       ];
-    })
-  ));
+    }),
+    catchError((error) => of(fromAuthActions.httpErrorResponse({error}))
+    )));
 
   loginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.login),
