@@ -29,11 +29,7 @@ export class AuthService {
     private store: Store<AppState>,
     private userService: UserService,
     private router: Router,
-  ) {
-    this.store.select('auth').subscribe((state) => {
-      console.log(state);
-    });
-  }
+  ) {}
 
   autoLogout(expirationTimer: number): void {
     this.logoutTimer = setTimeout(() => {
