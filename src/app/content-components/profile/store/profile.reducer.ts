@@ -2,38 +2,32 @@ import {Action, createReducer, on} from '@ngrx/store';
 import * as ProfileActions from './profile.actions';
 
 
+export interface Profile {
+  avatarUrl: string;
+  age: string;
+  country: string;
+  city: string;
+  gender: string;
+  hobbies: string;
+  about: string;
+}
+
 export interface State {
-  profile: {
-    avatarUrl: string,
-    age: string;
-    country: string;
-    city: string;
-    gender: 'Male'| 'Female';
-    hobbies: string;
-    about: string;
-  };
+    profile: Profile;
 }
 
 const initialState: State = {
-  profile: {
-    avatarUrl: null,
-    age: null,
-    country: null,
-    city: null,
-    gender: null,
-    hobbies: null,
-    about: null,
-  }
+    profile: null
 };
 
-const messagesReducer = createReducer(
+const profileReducer = createReducer(
   initialState,
-  on(ProfileActions.login,
-    (state, userData) => {
-      return {...state, userData: {...userData}};
+  on(ProfileActions.getProfileSuccess,
+    (state, profileData) => {
+      return {...state, profile: {...profileData.profile}};
     })
 );
 
 export function reducer(state: State | undefined, action: Action): State {
-  return messagesReducer(state, action);
+  return profileReducer(state, action);
 }
