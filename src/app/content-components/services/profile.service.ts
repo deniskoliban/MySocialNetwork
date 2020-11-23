@@ -13,6 +13,13 @@ export class ProfileService {
   state: State;
 
   constructor(private http: HttpClient, private store: Store<AppState> ) {
+    this.store.select('auth').subscribe((state) => {
+      this.state = state;
+      console.log(this.state);
+    });
+    this.store.select('profile').subscribe((state) => {
+      console.log(state);
+    });
   }
 
   putProfile(profile: Profile): Observable<Profile> {
