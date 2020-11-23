@@ -19,6 +19,7 @@
                   <mat-label>{{item.name | titlecase}}</mat-label>
                   <input
                     matInput
+                    [(ngModel)]="item.innerText"
                     [formControl]="profileFormControls[item.name]"
                   >
                 </mat-form-field>
@@ -29,7 +30,7 @@
         </mat-selection-list>
       </form>
     </mat-card-content>
-    <mat-card-actions align="end">
+    <mat-card-actions (click)="onSubmit()" align="end">
       <button mat-raised-button>Save Changes</button>
     </mat-card-actions>
   </mat-card>

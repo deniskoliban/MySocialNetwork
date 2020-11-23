@@ -6,6 +6,8 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {logout} from '../../components/auth/store/authActions';
+import {putProfile} from './store/profile.actions';
+import {Profile} from './store/profile.reducer';
 
 export interface ProfileListItem {
   innerText: string;
@@ -41,7 +43,6 @@ export class ProfileComponent implements OnInit {
     event.stopPropagation();
     this.profileList[index].isEdit = false;
     this.profileList[index].innerText = this.profileForm.value[this.profileList[index].name];
-    console.log(this.profileForm.value);
   }
 
   startEditProfileListItem(index): void {
@@ -49,23 +50,28 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(): void{
-    console.log('Submit');
+    this.store.dispatch(putProfile({profile: {...this.profileForm.value as Profile}}));
   }
 
   initProfileList(): void {
+    let profile;
+    this.store.select('profile')
+      .subscribe((state) => {
+        profile = state.profile;
+      });
+
     this.profileListNames.map(
       (el) => {
         this.profileList
           .push(
             {
-              innerText: null,
+              innerText: profile[el],
               name: el,
               isEdit: false
             }
           );
       }
     );
-    console.log(this.profileList);
   }
 
   initProfileForm(): void {

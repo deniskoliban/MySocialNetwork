@@ -17,4 +17,5 @@ export const putProfile = createAction(
 
 export const putProfileSuccess = createAction(
   'PUT_PROFILE_SUCCESS',
+  props<{profile: Profile}>()
 );

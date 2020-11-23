@@ -17,11 +17,23 @@ export interface State {
 }
 
 const initialState: State = {
-    profile: null
+    profile: {
+      avatarUrl: null,
+      age: null,
+      country: null,
+      city: null,
+      gender: null,
+      hobbies: null,
+      about: null,
+    }
 };
 
 const profileReducer = createReducer(
   initialState,
+  on(ProfileActions.putProfileSuccess,
+    (state, profileData) => {
+      return {...state, profile: {...profileData.profile}};
+    }),
   on(ProfileActions.getProfileSuccess,
     (state, profileData) => {
       return {...state, profile: {...profileData.profile}};
