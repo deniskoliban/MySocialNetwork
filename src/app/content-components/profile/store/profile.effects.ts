@@ -9,6 +9,15 @@ import {ProfileService} from '../../services/profile.service';
 })
 export class ProfileEffects {
 
+  putProfileEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromProfileActions.putProfile),
+    switchMap((action) => {
+      return this.profileService.putProfile(action.profile).pipe(
+        map((profile) => fromProfileActions.putProfileSuccess())
+      );
+    })
+  ));
+
   getProfileEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromProfileActions.getProfile),
     switchMap(() => {
