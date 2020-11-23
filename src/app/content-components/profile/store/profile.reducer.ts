@@ -3,11 +3,27 @@ import * as ProfileActions from './profile.actions';
 
 
 export interface State {
-  profile: any;
+  profile: {
+    avatarUrl: string,
+    age: string;
+    country: string;
+    city: string;
+    gender: 'Male'| 'Female';
+    hobbies: string;
+    about: string;
+  };
 }
 
 const initialState: State = {
-  profile: null
+  profile: {
+    avatarUrl: null,
+    age: null,
+    country: null,
+    city: null,
+    gender: null,
+    hobbies: null,
+    about: null,
+  }
 };
 
 const messagesReducer = createReducer(

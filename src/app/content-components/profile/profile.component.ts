@@ -3,6 +3,16 @@ import {UserData} from '../../components/auth/store/authReducer';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Observable, of} from 'rxjs';
+import {logout} from '../../components/auth/store/authActions';
+
+export interface ProfileListItem {
+  innerText: string;
+  name: string;
+  isEdit: boolean;
+}
+
 
 @Component({
   selector: 'app-profile',
@@ -13,10 +23,61 @@ export class ProfileComponent implements OnInit {
   @ViewChild('file', {static: true}) file: ElementRef;
   @ViewChild('avatar', {static: true}) avatar: ElementRef;
   userData: UserData;
+  profileForm: FormGroup;
+  profileFormControls = {};
+  profileListNames = ['age', 'country', 'city', 'gender', 'hobbies', 'about'];
+  profileList: ProfileListItem[] = [];
 
-  constructor(private store: Store<AppState>, private storage: AngularFireStorage) { }
+  constructor(private store: Store<AppState>, private storage: AngularFireStorage, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.subscribeToUserData();
+    this.initProfileList();
+    this.initProfileForm();
+    this.profileForm = this.fb.group(this.profileFormControls);
+  }
+
+  editProfileListItem(index, event): void {
+    event.stopPropagation();
+    this.profileList[index].isEdit = false;
+    this.profileList[index].innerText = this.profileForm.value[this.profileList[index].name];
+    console.log(this.profileForm.value);
+  }
+
+  startEditProfileListItem(index): void {
+    this.profileList[index].isEdit = true;
+  }
+
+  onSubmit(): void{
+    console.log('Submit');
+  }
+
+  initProfileList(): void {
+    this.profileListNames.map(
+      (el) => {
+        this.profileList
+          .push(
+            {
+              innerText: null,
+              name: el,
+              isEdit: false
+            }
+          );
+      }
+    );
+    console.log(this.profileList);
+  }
+
+  initProfileForm(): void {
+    this.profileList.map(
+      (el) => {
+        this.profileFormControls[el.name] = new FormControl(null);
+      }
+    );
+    console.log(this.profileFormControls);
+  }
+
+  subscribeToUserData(): void {
     this.store.select('auth').subscribe(
       (state) => {
         this.userData = state.userData;

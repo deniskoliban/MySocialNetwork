@@ -2,23 +2,35 @@
   <mat-card class="example-card">
     <mat-card-header style="display: flex; align-items: center">
       <div mat-card-avatar #avatar class="example-header-image"></div>
-      <mat-card-title>{{userData.firstName}} {{userData.lastName}}</mat-card-title>
+      <mat-card-title>{{userData.firstName | titlecase}} {{userData.lastName | titlecase}}</mat-card-title>
       <button mat-raised-button  [color]="file.files[0] ? 'primary': null " (click)="upload()">Upload</button>
       <button mat-raised-button (click)="chooseFile()" >Choose image...<input style="display: none" type="file" #file></button>
     </mat-card-header>
     <hr>
     <mat-card-content>
-      <mat-list role="list">
-        <mat-list-item role="listitem">Age: 24</mat-list-item>
-        <mat-list-item role="listitem">Country: Ukraine</mat-list-item>
-        <mat-list-item role="listitem">City: Kropivnitsky</mat-list-item>
-        <mat-list-item role="listitem">Gender: Male</mat-list-item>
-        <mat-list-item role="listitem">Hobbies: any</mat-list-item>
-        <mat-list-item role="listitem">About me: hello)</mat-list-item>
-      </mat-list>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <mat-selection-list [multiple]="false">
+          <mat-list-option role="listitem" *ngFor="let item of profileList; let i = index"
+                           (click)="startEditProfileListItem(i)">
+            <div class="list-option">
+              <div>
+                <span *ngIf="!item.isEdit">{{item.name | titlecase}}: {{item.innerText}}</span>
+                <mat-form-field *ngIf="item.isEdit">
+                  <mat-label>{{item.name | titlecase}}</mat-label>
+                  <input
+                    matInput
+                    [formControl]="profileFormControls[item.name]"
+                  >
+                </mat-form-field>
+              </div>
+              <button *ngIf="item.isEdit" mat-raised-button (click)="editProfileListItem(i, $event)">Change</button>
+            </div>
+          </mat-list-option>
+        </mat-selection-list>
+      </form>
     </mat-card-content>
-    <mat-card-actions>
-
+    <mat-card-actions align="end">
+      <button mat-raised-button>Save Changes</button>
     </mat-card-actions>
   </mat-card>
 </div>
