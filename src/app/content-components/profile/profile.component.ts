@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {UserData} from '../../components/auth/store/authReducer';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
@@ -6,11 +6,13 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {getProfile, putProfile} from './store/profile.actions';
 import {Profile} from './store/profile.reducer';
+import {Element} from '@angular/compiler';
 
 export interface ProfileListItem {
   innerText: string;
   name: string;
   isEdit: boolean;
+  mouseOver: boolean;
 }
 
 
@@ -65,7 +67,8 @@ export class ProfileComponent implements OnInit {
         this.profileList[count] = {
               innerText: profile[key],
               name: key,
-              isEdit: false
+              isEdit: false,
+              mouseOver: false
             };
         count++;
       }

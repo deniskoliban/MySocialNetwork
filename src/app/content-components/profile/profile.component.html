@@ -10,7 +10,10 @@
     <mat-card-content>
       <form [formGroup]="profileForm">
         <mat-selection-list [multiple]="false">
-          <mat-list-option role="listitem" *ngFor="let item of profileList; let i = index"
+          <mat-list-option
+                           *ngFor="let item of profileList; let i = index"
+                           (mouseenter)="item.mouseOver = true"
+                           (mouseleave)="item.mouseOver = false"
                            (click)="startEditProfileListItem(i)">
             <div class="list-option">
               <div>
@@ -23,6 +26,7 @@
                   >
                 </mat-form-field>
               </div>
+              <mat-icon *ngIf="!item.isEdit && item.mouseOver" matSuffix>mode_edit</mat-icon>
               <button *ngIf="item.isEdit" mat-raised-button (click)="editProfileListItem(i, $event)">Change</button>
             </div>
           </mat-list-option>
