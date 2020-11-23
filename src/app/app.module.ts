@@ -25,6 +25,7 @@ import {environment} from '../environments/environment';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {ProfileEffects} from './content-components/profile/store/profile.effects';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(fromAppReducer.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, ProfileEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
     StoreRouterConnectingModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
