@@ -4,22 +4,22 @@ import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import * as fromAuthActions from './authActions';
 import {AuthResponse, AuthService} from '../../../services/services/auth.service';
 import {of} from 'rxjs';
+import {Router} from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthEffects {
+  logoutEffect = createEffect(() => this.actions$.pipe(
+    ofType(fromAuthActions.logout),
+    tap(() => this.router.navigate(['/auth']))
+  ), {dispatch: false});
+
   navigateToContentEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.navigateToContent),
     tap(() => this.authService.navigateToContent())
   ), {dispatch: false});
-
-
-  /*loadingStopEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(fromAuthActions.loadingStop),
-    tap(() => this.authService.navigateToContent())
-  ), {dispatch: false});*/
 
   httpErrorEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromAuthActions.httpErrorResponse),
@@ -142,6 +142,6 @@ export class AuthEffects {
     )
   );
 
-  constructor(private actions$: Actions, private authService: AuthService) {
+  constructor(private actions$: Actions, private authService: AuthService, private router: Router) {
   }
 }

@@ -5,6 +5,8 @@ import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/services/auth.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
+import {logout} from '../auth/store/authActions';
+import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,7 @@ import {AppState} from '../../store/app.reducer';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   sidenavSubscription: Subscription;
-  sidebarBtnToggleColor: string = null;
+  sidebarBtnToggleColor: ThemePalette = null;
   sidebar: any;
 
   constructor(
@@ -38,6 +40,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.sidebar = sidebar;
       }
     });
+  }
+
+
+  logout(): void {
+    this.store.dispatch(logout());
   }
 
   ngOnDestroy(): void {

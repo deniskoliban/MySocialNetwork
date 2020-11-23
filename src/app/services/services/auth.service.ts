@@ -78,8 +78,4 @@ export class AuthService {
   navigateToContent(): void {
     this.router.navigate(['/content']);
   }
-
-  logout(): void {
-    this.store.dispatch(logout());
-  }
 }
