@@ -3,7 +3,6 @@ import * as ProfileActions from './profile.actions';
 
 
 export interface Profile {
-  avatarUrl: string;
   age: string;
   country: string;
   city: string;
@@ -18,7 +17,6 @@ export interface State {
 
 const initialState: State = {
     profile: {
-      avatarUrl: null,
       age: null,
       country: null,
       city: null,
@@ -32,11 +30,25 @@ const profileReducer = createReducer(
   initialState,
   on(ProfileActions.putProfileSuccess,
     (state, profileData) => {
-      return {...state, profile: {...profileData.profile}};
+      return {...state, profile: {
+          age: profileData.profile.age,
+          country: profileData.profile.country,
+          city: profileData.profile.city,
+          gender: profileData.profile.gender,
+          hobbies: profileData.profile.hobbies,
+          about: profileData.profile.about
+        }};
     }),
   on(ProfileActions.getProfileSuccess,
     (state, profileData) => {
-      return {...state, profile: {...profileData.profile}};
+      return {...state, profile: {
+          age: profileData.profile.age,
+          country: profileData.profile.country,
+          city: profileData.profile.city,
+          gender: profileData.profile.gender,
+          hobbies: profileData.profile.hobbies,
+          about: profileData.profile.about
+        }};
     })
 );
 
