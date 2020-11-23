@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {Observable} from 'rxjs';
-import {UserData} from '../../components/auth/store/authReducer';
 import {Profile} from '../profile/store/profile.reducer';
 
 @Injectable({
@@ -16,6 +15,13 @@ export class ProfileService {
     this.store.select('auth').subscribe((state) => {
       this.localId = state.user.localId;
     });
+  }
+
+  putProfile(profile: Profile): Observable<Profile> {
+    return this.http.put<Profile>(
+      `https://mysocialnetwork-ee2a9.firebaseio.com/users/${this.localId}/profile.json`,
+      {profile}
+    );
   }
 
   getProfile(): Observable<Profile> {
