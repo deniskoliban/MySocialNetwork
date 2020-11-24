@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Profile} from './profile.reducer';
+import {Profile, State} from './profile.reducer';
 
 export const getProfile = createAction(
   'GET_PROFILE',
@@ -18,4 +18,14 @@ export const putProfile = createAction(
 export const putProfileSuccess = createAction(
   'PUT_PROFILE_SUCCESS',
   props<{profile: Profile}>()
+);
+
+export const uploadAvatar = createAction(
+  'UPLOAD_AVATAR',
+  props<{url: string}>()
+);
+
+export const uploadAvatarSuccess = createAction(
+  'UPLOAD_AVATAR_SUCCESS',
+  props<{url: string}>()
 );
