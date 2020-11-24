@@ -34,7 +34,10 @@ export class ProfileEffects {
     ofType(fromProfileActions.getProfile),
     switchMap(() => {
       return this.profileService.getProfile().pipe(
-        map((profile) => fromProfileActions.getProfileSuccess({profile})),
+        switchMap((profileState) => [
+          fromProfileActions.getProfileSuccess({profile: profileState.profile}),
+          fromProfileActions.uploadAvatarSuccess({url: profileState.avatarUrl.url})
+          ]),
         catchError((error) => of(fromAuthActions.httpErrorResponse({error})))
       );
     })
