@@ -10,6 +10,15 @@ import * as fromAuthActions from '../../../components/auth/store/authActions';
   providedIn: 'root'
 })
 export class ProfileEffects {
+  uploadAvatarEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(fromProfileActions.uploadAvatar),
+    switchMap((action) => {
+      return this.profileService.uploadAvatar(action.url).pipe(
+        map((url) => fromProfileActions.getProfile()),
+        catchError((error) => of(fromAuthActions.httpErrorResponse({error})))
+      );
+    })
+  ));
 
   putProfileEffect$ = createEffect(() => this.actions$.pipe(
     ofType(fromProfileActions.putProfile),
