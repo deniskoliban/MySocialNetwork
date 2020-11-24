@@ -4,6 +4,7 @@ import {SidenavService} from '../../services/services/sidenav.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {UserData} from '../../components/auth/store/authReducer';
+import {getProfile} from '../profile/store/profile.actions';
 
 
 @Component({
@@ -16,9 +17,11 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   constructor(
     private sidenavService: SidenavService,
+    private store: Store<AppState>,
     ) { }
 
   ngOnInit(): void {
+    this.store.dispatch(getProfile());
   }
 
   ngAfterViewInit(): void {
