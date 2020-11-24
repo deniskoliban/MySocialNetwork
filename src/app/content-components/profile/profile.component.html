@@ -1,7 +1,7 @@
 <div class="profile-container">
   <mat-card class="example-card">
     <mat-card-header style="display: flex; align-items: center">
-      <div mat-card-avatar #avatar class="example-header-image"></div>
+      <div mat-card-avatar #avatar class="example-header-image" [style]="{backgroundImage: 'url(' + avatarUrl + ')'}"></div>
       <mat-card-title>{{userData.firstName | titlecase}} {{userData.lastName | titlecase}}</mat-card-title>
       <button mat-raised-button  [color]="file.files[0] ? 'primary': null " (click)="upload()">Upload</button>
       <button mat-raised-button (click)="chooseFile()" >Choose image...<input style="display: none" type="file" #file></button>

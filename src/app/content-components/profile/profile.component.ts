@@ -1,12 +1,12 @@
-import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserData} from '../../components/auth/store/authReducer';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducer';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {getProfile, putProfile} from './store/profile.actions';
+import {getProfile, putProfile, uploadAvatar} from './store/profile.actions';
 import {Profile} from './store/profile.reducer';
-import {Element} from '@angular/compiler';
+
 
 export interface ProfileListItem {
   innerText: string;
@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild('file', {static: true}) file: ElementRef;
   @ViewChild('avatar', {static: true}) avatar: ElementRef;
   userData: UserData;
+  avatarUrl: string;
   profileForm: FormGroup;
   profileFormControls = {};
   profileList: ProfileListItem[] = [];
@@ -37,9 +38,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeToUserData();
-    this.store.dispatch(getProfile());
     this.store.select('profile')
       .subscribe((state) => {
+        this.avatarUrl = state.avatarUrl;
         this.initProfileList(state.profile);
         this.initProfileFormControls();
         this.profileForm = this.fb.group(this.profileFormControls);
@@ -103,7 +104,7 @@ export class ProfileComponent implements OnInit {
 
     task.then(
       snapshot => snapshot.ref.getDownloadURL()
-    ).then(url => this.avatar.nativeElement.style.backgroundImage = `url(${url})`);
+    ).then(url => this.store.dispatch(uploadAvatar({url})));
   }
 
   chooseFile(): void {
