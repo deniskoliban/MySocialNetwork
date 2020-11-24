@@ -13,6 +13,7 @@ export interface Profile {
 
 export interface State {
     profile: Profile;
+    avatarUrl: string;
 }
 
 const initialState: State = {
@@ -23,11 +24,16 @@ const initialState: State = {
       gender: null,
       hobbies: null,
       about: null,
-    }
+    },
+  avatarUrl: 'https://material.angular.io/assets/img/examples/shiba1.jpg'
 };
 
 const profileReducer = createReducer(
   initialState,
+  on(ProfileActions.uploadAvatarSuccess,
+    (state, url) => {
+      return {...state, avatarUrl: url.url};
+    }),
   on(ProfileActions.putProfileSuccess,
     (state, profileData) => {
       return {...state, profile: {
@@ -41,14 +47,17 @@ const profileReducer = createReducer(
     }),
   on(ProfileActions.getProfileSuccess,
     (state, profileData) => {
-      return {...state, profile: {
+      return {
+        ...state,
+        profile: {
           age: profileData.profile.age,
           country: profileData.profile.country,
           city: profileData.profile.city,
           gender: profileData.profile.gender,
           hobbies: profileData.profile.hobbies,
           about: profileData.profile.about
-        }};
+        },
+      };
     })
 );
 
